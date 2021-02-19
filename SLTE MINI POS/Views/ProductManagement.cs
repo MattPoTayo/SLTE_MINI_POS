@@ -19,7 +19,6 @@ namespace SLTE_MINI_POS.Views
         private List<Product> products = new List<Product>();
         private int beginColumn = 0;
         private Product longestProductName = null;
-        private int productWidth = 0;
         private bool isCheckSize = false;
         public ProductManagement()
         {
