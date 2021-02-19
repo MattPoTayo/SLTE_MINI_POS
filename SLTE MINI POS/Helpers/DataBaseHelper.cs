@@ -26,7 +26,9 @@ namespace SLTE_MINI_POS.Helpers
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "barcode VARCHAR(100) NOT NULL, " +
                             "productname VARCHAR(100) NOT NULL, " +
-                            "price DECIMAL(19,6), " +
+                            "stockno VARCHAR(100) NOT NULL DEFAULT '', " +
+                            "price DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "discontinued INT(32) NOT NULL DEFAULT 1, " +
                             "inventory INTEGER DEFAULT 0)");
                         conn.Execute("CREATE TABLE IF NOT EXISTS TransactionHead (" +
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
