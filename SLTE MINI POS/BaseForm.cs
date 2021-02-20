@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace SLTE_MINI_POS
+namespace MINIPOS
 {
     public class BaseForm : Form
     {
