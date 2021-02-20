@@ -54,8 +54,8 @@ namespace SLTE_MINI_POS.Helpers
                 string transNo  = GetNextTransNumber();
                 string idNo = GetNextID("TransactionHead");
 
-                DataBaseHelper.SetDB(string.Format(@"INSERT INTO TransactionHead(transactionnumber, invoicenumber, transdate)
-                    VALUES('{0}','{1}','{2}')", transNo, trans.InvoiceNumber, trans.Date));
+                DataBaseHelper.SetDB(string.Format(@"INSERT INTO TransactionHead(transactionnumber, invoicenumber, transdate, sales, tenderamount)
+                    VALUES('{0}','{1}','{2}', '{3}', '{4}')", transNo, trans.InvoiceNumber, trans.Date, trans.Sales ? "1": "0", trans.TenderAmount));
 
                 foreach(Product prod in trans.productlist)
                 {
@@ -66,6 +66,22 @@ namespace SLTE_MINI_POS.Helpers
             }
             catch 
             {
+                return false;
+            }
+        }
+        public static bool VoidTransaction(Transaction trans)
+        {
+            try
+            {
+                DataBaseHelper.SetDB(string.Format(@"UPDATE TransactionHead
+                                        SET sales = '0',
+	                                        transdate ='{0}'
+                                        WHERE id = '{1}'", DateTime.Now, trans.ID));
+                return true;
+            }
+            catch (Exception exe)
+            {
+                MessageBox.Show(exe.Message);
                 return false;
             }
         }
@@ -117,6 +133,63 @@ namespace SLTE_MINI_POS.Helpers
                 long transnumbraw = Convert.ToInt64(test);
                 return (transnumbraw + 1).ToString();
             }
+        }
+        public static string GetCurrentInvoice()
+        {
+            DataTable dt = DataBaseHelper.GetDB("SELECT invoicenumber FROM TransactionHead ORDER BY invoicenumber DESC LIMIT 1");
+            if (dt.Rows.Count == 0)
+                return "";
+            else
+            {
+                return dt.Rows[0]["invoicenumber"].ToString();
+            }
+        }
+
+        public static Transaction GetTransactionByInvoice(string invoice)
+        {
+            Transaction trans = new Transaction();
+
+            try
+            {
+                DataTable dt = DataBaseHelper.GetDB(string.Format(@"SELECT * FROM TransactionHead WHERE invoicenumber = '{0}' LIMIT 1", invoice));
+                if (dt.Rows.Count == 0)
+                    return null;
+                else
+                {
+                    trans = new Transaction
+                    {
+                        ID = Convert.ToInt64(dt.Rows[0]["id"]),
+                        InvoiceNumber = dt.Rows[0]["invoicenumber"].ToString(),
+                        TransactionNo = dt.Rows[0]["transactionnumber"].ToString(),
+                        Sales = Convert.ToInt32(dt.Rows[0]["sales"].ToString()) == 1 ? true : false,
+                        Date = Convert.ToDateTime(dt.Rows[0]["transdate"].ToString()),
+                        TenderAmount = Convert.ToDecimal(dt.Rows[0]["tenderamount"])
+                    };
+
+                    DataTable dtdetail = DataBaseHelper.GetDB(string.Format(@"SELECT * From TransactionDetail WHERE headid = '{0}'", trans.ID));
+
+                    if (dt.Rows.Count == 0)
+                        return null;
+                    else
+                    {
+                        foreach(DataRow dr in dtdetail.Rows)
+                        {
+                            string prodid = dr["productid"].ToString();
+                            decimal price = Convert.ToDecimal(dr["price"]);
+                            decimal qty = Convert.ToDecimal(dr["quantity"]);
+
+                            Product prod = new Product();
+                            prod.SetProductByID(prodid);
+                            prod.Qty = qty;
+                            prod.Price = price;
+
+                            trans.productlist.Add(prod);
+                        }
+                    }    
+                }
+            }
+            catch { return null; }
+            return trans;
         }
     }
 }

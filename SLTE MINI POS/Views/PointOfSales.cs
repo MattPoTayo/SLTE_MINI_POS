@@ -177,7 +177,6 @@ namespace SLTE_MINI_POS.Views
 
         private void txtKeyword_Leave(object sender, EventArgs e)
         {
-            this.txtKeyword.Focus();
         }
 
         private void bgwSearchProduct_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -206,6 +205,8 @@ namespace SLTE_MINI_POS.Views
             dgvTransactionProduct.RowCount = 0;
             transaction.InvoiceNumber = DataHandler.GetNextORNumber().PadLeft(7, '0');
             lblORNumber.Text = transaction.InvoiceNumber;
+
+            RefreshTransactionDetails();
         }
 
         private void dgvProduct_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -256,11 +257,96 @@ namespace SLTE_MINI_POS.Views
         {
             dgvTransactionProduct.RowCount = 0;
             transaction.productlist.Clear();
+            RefreshTransactionDetails();
         }
 
         private void RefreshTransactionDetails()
         {
-            lblAmoundDueD.Text = transaction.GetTotalAmountDue().ToString();
+            lblAmoundDueD.Text = transaction.GetTotalAmountDue().ToString("N2");
+            lblTotalQtyD.Text = String.Format("{0:0.##}", transaction.GetTotalQty());
+
+            if (dgvTransactionProduct.Rows.Count <= 0 && dgvTransactionProduct.SelectedRows.Count <= 0)
+            {
+                lblQtyD.Text = "0";
+                lblQtyD.Enabled = false;
+                btnChangeQty.Enabled = false;
+            }
+            else
+            {
+                try
+                {
+                    lblQtyD.Text = String.Format("{0:0.##}", transaction.productlist[dgvTransactionProduct.SelectedRows[0].Index].Qty);
+                    btnChangeQty.Enabled = true;
+                    lblQtyD.Enabled = true;
+                }
+                catch
+                {
+                    lblQtyD.Text = "0";
+                    btnChangeQty.Enabled = false;
+                    lblQtyD.Enabled = false;
+                }
+            }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (dgvTransactionProduct.SelectedRows.Count <= 0)
+                return;
+
+            int index = dgvTransactionProduct.SelectedRows[0].Index;
+            transaction.productlist.RemoveAt(index);
+
+            if (transaction.productlist.Count <= 0)
+            {
+                dgvTransactionProduct.RowCount = 0;
+            }
+            else
+                dgvTransactionProduct.RowCount = transaction.productlist.Count;
+
+            dgvTransactionProduct.Refresh();
+            RefreshTransactionDetails();
+        }
+
+        private void dgvTransactionProduct_SelectionChanged(object sender, EventArgs e)
+        {
+            RefreshTransactionDetails();
+        }
+
+        private void btnChangeQty_Click(object sender, EventArgs e)
+        {
+            if (dgvTransactionProduct.SelectedRows.Count <= 0)
+                return;
+
+            int index = dgvTransactionProduct.SelectedRows[0].Index;
+            decimal qty = FncFilter.GetDecimalValue(lblQtyD.Text);
+            transaction.productlist[index].Qty = qty;
+
+            dgvTransactionProduct.Refresh();
+            RefreshTransactionDetails();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddProduct();
+        }
+
+        private void btnReprint_Click(object sender, EventArgs e)
+        {
+            ReprintVoidForm reprintVoidForm = new ReprintVoidForm();
+            reprintVoidForm.IsReprint = true;
+            reprintVoidForm.ShowDialog();
+        }
+
+        private void btnVoid_Click(object sender, EventArgs e)
+        {
+            ReprintVoidForm reprintVoidForm = new ReprintVoidForm();
+            reprintVoidForm.IsReprint = false;
+            reprintVoidForm.ShowDialog();
+        }
+
+        private void btnOpenDrawer_Click(object sender, EventArgs e)
+        {
+            RawPrinterHelper.OpenCashDrawer(false);
         }
     }
 }

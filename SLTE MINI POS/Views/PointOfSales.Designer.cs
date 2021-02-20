@@ -30,26 +30,25 @@ namespace SLTE_MINI_POS.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PointOfSales));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvProduct = new System.Windows.Forms.DataGridView();
             this.colBarcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStockNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pbLoad = new System.Windows.Forms.PictureBox();
             this.txtKeyword = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblTotalQty = new System.Windows.Forms.Label();
+            this.lblTotalQtyD = new System.Windows.Forms.Label();
             this.dgvTransactionProduct = new System.Windows.Forms.DataGridView();
             this.colTransBarcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTransProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTransPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTransQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnRemove = new FontAwesome.Sharp.IconButton();
-            this.btnPayment = new FontAwesome.Sharp.IconButton();
-            this.btnClear = new FontAwesome.Sharp.IconButton();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.lblORNumber = new System.Windows.Forms.Label();
@@ -57,17 +56,27 @@ namespace SLTE_MINI_POS.Views
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.lblAmoundDueD = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.lblQtyD = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.bgwSearchProduct = new System.ComponentModel.BackgroundWorker();
             this.keyDownTimer = new System.Windows.Forms.Timer(this.components);
+            this.btnChangeQty = new FontAwesome.Sharp.IconButton();
+            this.btnRemove = new FontAwesome.Sharp.IconButton();
+            this.btnPayment = new FontAwesome.Sharp.IconButton();
+            this.btnClear = new FontAwesome.Sharp.IconButton();
+            this.btnOpenDrawer = new FontAwesome.Sharp.IconButton();
+            this.btnVoid = new FontAwesome.Sharp.IconButton();
+            this.btnReprint = new FontAwesome.Sharp.IconButton();
+            this.btnAdd = new FontAwesome.Sharp.IconButton();
+            this.pbLoad = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransactionProduct)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +84,10 @@ namespace SLTE_MINI_POS.Views
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnOpenDrawer);
+            this.panel1.Controls.Add(this.btnVoid);
+            this.panel1.Controls.Add(this.btnReprint);
+            this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.dgvProduct);
             this.panel1.Controls.Add(this.pbLoad);
             this.panel1.Controls.Add(this.txtKeyword);
@@ -95,14 +108,14 @@ namespace SLTE_MINI_POS.Views
             this.dgvProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProduct.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.dgvProduct.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvProduct.ColumnHeadersHeight = 30;
             this.dgvProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvProduct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -115,7 +128,7 @@ namespace SLTE_MINI_POS.Views
             this.dgvProduct.Name = "dgvProduct";
             this.dgvProduct.ReadOnly = true;
             this.dgvProduct.RowHeadersVisible = false;
-            this.dgvProduct.Size = new System.Drawing.Size(323, 396);
+            this.dgvProduct.Size = new System.Drawing.Size(323, 255);
             this.dgvProduct.TabIndex = 105;
             this.dgvProduct.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProduct_CellContentDoubleClick);
             // 
@@ -159,19 +172,6 @@ namespace SLTE_MINI_POS.Views
             this.colStockNo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colStockNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // pbLoad
-            // 
-            this.pbLoad.BackColor = System.Drawing.Color.Transparent;
-            this.pbLoad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbLoad.Image = ((System.Drawing.Image)(resources.GetObject("pbLoad.Image")));
-            this.pbLoad.Location = new System.Drawing.Point(306, 71);
-            this.pbLoad.Name = "pbLoad";
-            this.pbLoad.Size = new System.Drawing.Size(29, 29);
-            this.pbLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbLoad.TabIndex = 104;
-            this.pbLoad.TabStop = false;
-            this.pbLoad.Visible = false;
-            // 
             // txtKeyword
             // 
             this.txtKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -190,6 +190,8 @@ namespace SLTE_MINI_POS.Views
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel6);
+            this.panel2.Controls.Add(this.btnChangeQty);
             this.panel2.Controls.Add(this.dgvTransactionProduct);
             this.panel2.Controls.Add(this.btnRemove);
             this.panel2.Controls.Add(this.btnPayment);
@@ -197,13 +199,50 @@ namespace SLTE_MINI_POS.Views
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Controls.Add(this.textBox3);
+            this.panel2.Controls.Add(this.lblQtyD);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(353, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(315, 522);
             this.panel2.TabIndex = 21;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.lblTotalQty);
+            this.panel6.Controls.Add(this.lblTotalQtyD);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel6.Location = new System.Drawing.Point(0, 422);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(315, 50);
+            this.panel6.TabIndex = 108;
+            // 
+            // lblTotalQty
+            // 
+            this.lblTotalQty.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalQty.AutoSize = true;
+            this.lblTotalQty.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalQty.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblTotalQty.Location = new System.Drawing.Point(49, 6);
+            this.lblTotalQty.Name = "lblTotalQty";
+            this.lblTotalQty.Size = new System.Drawing.Size(131, 32);
+            this.lblTotalQty.TabIndex = 18;
+            this.lblTotalQty.Text = "Total Qty:";
+            // 
+            // lblTotalQtyD
+            // 
+            this.lblTotalQtyD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalQtyD.AutoSize = true;
+            this.lblTotalQtyD.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalQtyD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.lblTotalQtyD.Location = new System.Drawing.Point(186, 6);
+            this.lblTotalQtyD.Name = "lblTotalQtyD";
+            this.lblTotalQtyD.Size = new System.Drawing.Size(30, 32);
+            this.lblTotalQtyD.TabIndex = 19;
+            this.lblTotalQtyD.Text = "0";
+            this.lblTotalQtyD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dgvTransactionProduct
             // 
@@ -217,14 +256,14 @@ namespace SLTE_MINI_POS.Views
             this.dgvTransactionProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTransactionProduct.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.dgvTransactionProduct.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTransactionProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTransactionProduct.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvTransactionProduct.ColumnHeadersHeight = 30;
             this.dgvTransactionProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvTransactionProduct.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -239,6 +278,7 @@ namespace SLTE_MINI_POS.Views
             this.dgvTransactionProduct.RowHeadersVisible = false;
             this.dgvTransactionProduct.Size = new System.Drawing.Size(303, 196);
             this.dgvTransactionProduct.TabIndex = 106;
+            this.dgvTransactionProduct.SelectionChanged += new System.EventHandler(this.dgvTransactionProduct_SelectionChanged);
             // 
             // colTransBarcode
             // 
@@ -280,56 +320,6 @@ namespace SLTE_MINI_POS.Views
             this.colTransQty.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colTransQty.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // btnRemove
-            // 
-            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(131)))), ((int)(((byte)(142)))));
-            this.btnRemove.FlatAppearance.BorderSize = 0;
-            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemove.IconChar = FontAwesome.Sharp.IconChar.Minus;
-            this.btnRemove.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
-            this.btnRemove.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRemove.IconSize = 30;
-            this.btnRemove.Location = new System.Drawing.Point(196, 383);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(48, 39);
-            this.btnRemove.TabIndex = 25;
-            this.btnRemove.UseVisualStyleBackColor = false;
-            // 
-            // btnPayment
-            // 
-            this.btnPayment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(131)))), ((int)(((byte)(142)))));
-            this.btnPayment.FlatAppearance.BorderSize = 0;
-            this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPayment.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
-            this.btnPayment.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
-            this.btnPayment.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnPayment.IconSize = 30;
-            this.btnPayment.Location = new System.Drawing.Point(248, 427);
-            this.btnPayment.Name = "btnPayment";
-            this.btnPayment.Size = new System.Drawing.Size(48, 39);
-            this.btnPayment.TabIndex = 24;
-            this.btnPayment.UseVisualStyleBackColor = false;
-            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(131)))), ((int)(((byte)(142)))));
-            this.btnClear.FlatAppearance.BorderSize = 0;
-            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.IconChar = FontAwesome.Sharp.IconChar.Broom;
-            this.btnClear.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
-            this.btnClear.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnClear.IconSize = 30;
-            this.btnClear.Location = new System.Drawing.Point(248, 383);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(48, 39);
-            this.btnClear.TabIndex = 23;
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.label6);
@@ -360,7 +350,7 @@ namespace SLTE_MINI_POS.Views
             this.lblORNumber.AutoSize = true;
             this.lblORNumber.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblORNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
-            this.lblORNumber.Location = new System.Drawing.Point(213, 9);
+            this.lblORNumber.Location = new System.Drawing.Point(186, 9);
             this.lblORNumber.Name = "lblORNumber";
             this.lblORNumber.Size = new System.Drawing.Size(90, 32);
             this.lblORNumber.TabIndex = 19;
@@ -405,25 +395,25 @@ namespace SLTE_MINI_POS.Views
             this.lblAmoundDueD.AutoSize = true;
             this.lblAmoundDueD.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAmoundDueD.ForeColor = System.Drawing.Color.Red;
-            this.lblAmoundDueD.Location = new System.Drawing.Point(225, 6);
+            this.lblAmoundDueD.Location = new System.Drawing.Point(186, 6);
             this.lblAmoundDueD.Name = "lblAmoundDueD";
             this.lblAmoundDueD.Size = new System.Drawing.Size(68, 32);
             this.lblAmoundDueD.TabIndex = 19;
             this.lblAmoundDueD.Text = "0.00";
             this.lblAmoundDueD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox3
+            // lblQtyD
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblQtyD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(192, 126);
-            this.textBox3.MaxLength = 10;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(106, 39);
-            this.textBox3.TabIndex = 15;
-            this.textBox3.Tag = "num";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.lblQtyD.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQtyD.Location = new System.Drawing.Point(180, 129);
+            this.lblQtyD.MaxLength = 10;
+            this.lblQtyD.Name = "lblQtyD";
+            this.lblQtyD.Size = new System.Drawing.Size(64, 39);
+            this.lblQtyD.TabIndex = 15;
+            this.lblQtyD.Tag = "num";
+            this.lblQtyD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label3
             // 
@@ -450,6 +440,155 @@ namespace SLTE_MINI_POS.Views
             this.keyDownTimer.Interval = 400;
             this.keyDownTimer.Tick += new System.EventHandler(this.keyDownTimer_Tick);
             // 
+            // btnChangeQty
+            // 
+            this.btnChangeQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeQty.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnChangeQty.FlatAppearance.BorderSize = 0;
+            this.btnChangeQty.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangeQty.IconChar = FontAwesome.Sharp.IconChar.ExchangeAlt;
+            this.btnChangeQty.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnChangeQty.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnChangeQty.IconSize = 30;
+            this.btnChangeQty.Location = new System.Drawing.Point(248, 127);
+            this.btnChangeQty.Name = "btnChangeQty";
+            this.btnChangeQty.Size = new System.Drawing.Size(48, 39);
+            this.btnChangeQty.TabIndex = 107;
+            this.btnChangeQty.UseVisualStyleBackColor = false;
+            this.btnChangeQty.Click += new System.EventHandler(this.btnChangeQty_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnRemove.FlatAppearance.BorderSize = 0;
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.IconChar = FontAwesome.Sharp.IconChar.Minus;
+            this.btnRemove.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnRemove.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnRemove.IconSize = 30;
+            this.btnRemove.Location = new System.Drawing.Point(144, 377);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(51, 39);
+            this.btnRemove.TabIndex = 25;
+            this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnPayment
+            // 
+            this.btnPayment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnPayment.FlatAppearance.BorderSize = 0;
+            this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPayment.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
+            this.btnPayment.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnPayment.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnPayment.IconSize = 30;
+            this.btnPayment.Location = new System.Drawing.Point(248, 377);
+            this.btnPayment.Name = "btnPayment";
+            this.btnPayment.Size = new System.Drawing.Size(48, 39);
+            this.btnPayment.TabIndex = 24;
+            this.btnPayment.UseVisualStyleBackColor = false;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnClear.FlatAppearance.BorderSize = 0;
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClear.IconChar = FontAwesome.Sharp.IconChar.Broom;
+            this.btnClear.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnClear.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnClear.IconSize = 30;
+            this.btnClear.Location = new System.Drawing.Point(199, 377);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(48, 39);
+            this.btnClear.TabIndex = 23;
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnOpenDrawer
+            // 
+            this.btnOpenDrawer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenDrawer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnOpenDrawer.FlatAppearance.BorderSize = 0;
+            this.btnOpenDrawer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenDrawer.IconChar = FontAwesome.Sharp.IconChar.Codepen;
+            this.btnOpenDrawer.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnOpenDrawer.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnOpenDrawer.IconSize = 30;
+            this.btnOpenDrawer.Location = new System.Drawing.Point(120, 471);
+            this.btnOpenDrawer.Name = "btnOpenDrawer";
+            this.btnOpenDrawer.Size = new System.Drawing.Size(48, 39);
+            this.btnOpenDrawer.TabIndex = 109;
+            this.btnOpenDrawer.UseVisualStyleBackColor = false;
+            this.btnOpenDrawer.Click += new System.EventHandler(this.btnOpenDrawer_Click);
+            // 
+            // btnVoid
+            // 
+            this.btnVoid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVoid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnVoid.FlatAppearance.BorderSize = 0;
+            this.btnVoid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVoid.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnVoid.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnVoid.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnVoid.IconSize = 30;
+            this.btnVoid.Location = new System.Drawing.Point(66, 471);
+            this.btnVoid.Name = "btnVoid";
+            this.btnVoid.Size = new System.Drawing.Size(48, 39);
+            this.btnVoid.TabIndex = 108;
+            this.btnVoid.UseVisualStyleBackColor = false;
+            this.btnVoid.Click += new System.EventHandler(this.btnVoid_Click);
+            // 
+            // btnReprint
+            // 
+            this.btnReprint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReprint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnReprint.FlatAppearance.BorderSize = 0;
+            this.btnReprint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReprint.IconChar = FontAwesome.Sharp.IconChar.Print;
+            this.btnReprint.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnReprint.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnReprint.IconSize = 30;
+            this.btnReprint.Location = new System.Drawing.Point(12, 471);
+            this.btnReprint.Name = "btnReprint";
+            this.btnReprint.Size = new System.Drawing.Size(48, 39);
+            this.btnReprint.TabIndex = 107;
+            this.btnReprint.UseVisualStyleBackColor = false;
+            this.btnReprint.Click += new System.EventHandler(this.btnReprint_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnAdd.FlatAppearance.BorderSize = 0;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdd.IconChar = FontAwesome.Sharp.IconChar.Plus;
+            this.btnAdd.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(190)))), ((int)(((byte)(0)))));
+            this.btnAdd.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAdd.IconSize = 30;
+            this.btnAdd.Location = new System.Drawing.Point(287, 383);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(48, 39);
+            this.btnAdd.TabIndex = 106;
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // pbLoad
+            // 
+            this.pbLoad.BackColor = System.Drawing.Color.Transparent;
+            this.pbLoad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbLoad.Image = ((System.Drawing.Image)(resources.GetObject("pbLoad.Image")));
+            this.pbLoad.Location = new System.Drawing.Point(306, 71);
+            this.pbLoad.Name = "pbLoad";
+            this.pbLoad.Size = new System.Drawing.Size(29, 29);
+            this.pbLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLoad.TabIndex = 104;
+            this.pbLoad.TabStop = false;
+            this.pbLoad.Visible = false;
+            // 
             // PointOfSales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,14 +603,16 @@ namespace SLTE_MINI_POS.Views
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTransactionProduct)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -482,7 +623,7 @@ namespace SLTE_MINI_POS.Views
         private System.Windows.Forms.Label lblAmoundDueD;
         public System.Windows.Forms.TextBox txtKeyword;
         private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox textBox3;
+        public System.Windows.Forms.TextBox lblQtyD;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel5;
@@ -505,5 +646,13 @@ namespace SLTE_MINI_POS.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn colTransProductName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTransPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTransQty;
+        private FontAwesome.Sharp.IconButton btnChangeQty;
+        private FontAwesome.Sharp.IconButton btnAdd;
+        private FontAwesome.Sharp.IconButton btnOpenDrawer;
+        private FontAwesome.Sharp.IconButton btnVoid;
+        private FontAwesome.Sharp.IconButton btnReprint;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label lblTotalQty;
+        private System.Windows.Forms.Label lblTotalQtyD;
     }
 }

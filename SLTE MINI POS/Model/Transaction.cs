@@ -13,7 +13,8 @@ namespace SLTE_MINI_POS.Model
         public string TransactionNo { get; set; } = "";
         public string InvoiceNumber { get; set; } = "";
         public DateTime Date { get; set; } = DateTime.Now;
-
+        public decimal TenderAmount { get; set; } = 0;
+        public bool Sales { get; set; } = true;
         public Transaction()
         {
             productlist = new List<Product>();
@@ -25,6 +26,15 @@ namespace SLTE_MINI_POS.Model
         }
         public decimal GetTotalQty()
         {
-            return productlist.Sum(x => x.Qty);        }
+            return productlist.Sum(x => x.Qty);        
+        }
+        public decimal GetChange()
+        {
+            return TenderAmount >= GetTotalAmountDue() ? 0 : TenderAmount - GetTotalAmountDue();
+        }
+        public void SetTransactionByID(long ID)
+        {
+
+        }
     }
 }

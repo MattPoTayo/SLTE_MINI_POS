@@ -39,6 +39,9 @@
     <ApplicationIcon>image_2021_02_15t06_49_39_683z_kLq_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BarCode">
+      <HintPath>..\..\POS1\NelsoftPOS\bin\x86\Debug\BarCode.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
     </Reference>
@@ -78,11 +81,16 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Enums\PrintFormat.cs" />
+    <Compile Include="Enums\PrintingType.cs" />
     <Compile Include="Helpers\DataBaseHelper.cs" />
     <Compile Include="Helpers\DataHandler.cs" />
     <Compile Include="Helpers\FncFilter.cs" />
     <Compile Include="Helpers\GlobalFunc.cs" />
+    <Compile Include="Helpers\HardwareHelper.cs" />
     <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\RawPrinterHelper.cs" />
+    <Compile Include="Helpers\ReceiptPrinterHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +125,12 @@
     </Compile>
     <Compile Include="Views\Modal\ProductInfo.Designer.cs">
       <DependentUpon>ProductInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modal\ReprintVoidForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Modal\ReprintVoidForm.Designer.cs">
+      <DependentUpon>ReprintVoidForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PointOfSales.cs">
       <SubType>Form</SubType>
@@ -160,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Modal\ProductInfo.resx">
       <DependentUpon>ProductInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Modal\ReprintVoidForm.resx">
+      <DependentUpon>ReprintVoidForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PointOfSales.resx">
       <DependentUpon>PointOfSales.cs</DependentUpon>

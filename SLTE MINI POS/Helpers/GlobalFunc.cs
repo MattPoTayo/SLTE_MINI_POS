@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SLTE_MINI_POS.Model.Global;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +11,19 @@ namespace SLTE_MINI_POS.Helpers
 {
     class GlobalFunc
     {
+        public static byte[] getPrinterODByte()
+        {
+            byte[] code = new byte[] { };
+            try
+            {
+                if ((code = globalvariables.PrinterODByte.Split(',').Select(n => Convert.ToByte(n)).ToArray()).Length != 5)
+                    code = new byte[] { };
+            }
+            catch
+            {
+            }
+            return code;
+        }
         public static int CenterControlInParent(Control control, int buttonHeight)
         {
             string message = control.Text;

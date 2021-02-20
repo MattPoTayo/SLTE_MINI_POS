@@ -44,26 +44,41 @@ namespace SLTE_MINI_POS.Views.Modal
 
         private void btnExactAmount_Click(object sender, EventArgs e)
         {
-
+            decimal tendered = FncFilter.GetDecimalValue(lblDueAmount.Text);
+            decimal amountdue = FncFilter.GetDecimalValue(lblDueAmount.Text);
+            SaveTransaction(amountdue, tendered);
         }
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
             decimal tendered = FncFilter.GetDecimalValue(tbPrice.Text);
             decimal amountdue = FncFilter.GetDecimalValue(lblDueAmount.Text);
-            if (tendered < amountdue)
+            SaveTransaction(amountdue, tendered);
+        }
+        private void SaveTransaction(decimal amt, decimal tnd)
+        {
+            if (tnd < amt)
                 return;
-
-            if (!DataHandler.SaveTransaction(transaction))
+            try
+            {
+                transaction.TenderAmount = tnd;
+                if (!DataHandler.SaveTransaction(transaction))
+                {
+                    FncFilter.Alert(globalvariables.saving_failed);
+                    return;
+                }
+                else
+                {
+                    HardwareHelper.Print(transaction, false, false);
+                    FncFilter.Alert(globalvariables.saving_success);
+                    transComplete = true;
+                    this.Close();
+                }
+            }
+            catch
             {
                 FncFilter.Alert(globalvariables.saving_failed);
                 return;
-            }
-            else
-            {
-                FncFilter.Alert(globalvariables.saving_success);
-                transComplete = true;
-                this.Close();
             }
         }
     }
