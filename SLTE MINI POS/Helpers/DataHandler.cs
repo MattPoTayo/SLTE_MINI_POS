@@ -54,8 +54,8 @@ namespace SLTE_MINI_POS.Helpers
                 string transNo  = GetNextTransNumber();
                 string idNo = GetNextID("TransactionHead");
 
-                DataBaseHelper.SetDB(string.Format(@"INSERT INTO TransactionHead(transactionnumber, invoicenumber, transdate, sales, tenderamount)
-                    VALUES('{0}','{1}','{2}', '{3}', '{4}')", transNo, trans.InvoiceNumber, trans.Date, trans.Sales ? "1": "0", trans.TenderAmount));
+                DataBaseHelper.SetDB(string.Format(@"INSERT INTO TransactionHead(transactionnumber, invoicenumber, transdate, sales, tenderamount, date)
+                    VALUES('{0}','{1}','{2}', '{3}', '{4}', '{5}')", transNo, trans.InvoiceNumber, trans.Date.ToString("yyyy-MM-dd"), trans.Sales ? "1": "0", trans.TenderAmount, trans.Date));
 
                 foreach(Product prod in trans.productlist)
                 {
@@ -75,7 +75,7 @@ namespace SLTE_MINI_POS.Helpers
             {
                 DataBaseHelper.SetDB(string.Format(@"UPDATE TransactionHead
                                         SET sales = '0',
-	                                        transdate ='{0}'
+                                            date = '{0}'
                                         WHERE id = '{1}'", DateTime.Now, trans.ID));
                 return true;
             }
@@ -144,6 +144,60 @@ namespace SLTE_MINI_POS.Helpers
                 return dt.Rows[0]["invoicenumber"].ToString();
             }
         }
+        public static bool SaveReport(Report report)
+        {
+            try
+            {
+                DataBaseHelper.SetDB(@"DELETE FROM Reports WHERE readtype = '" + report.Type + "' AND transdate = '" + report.Date.ToString("yyyy-MM-dd") + "'");
+
+                report.ReadCount = GetNextReadCount(report.Type);
+
+                DataBaseHelper.SetDB(string.Format(@"INSERT INTO Reports(oldgrandtotal, newgrandtotal, date, readtype, readcount, transdate, voiditemqty, salesitemqty, grossamount, salescount, transcount, voidcount, voidamount, vat, vatablesales, minor, maxor)
+                    VALUES('{0}','{1}','{2}', '{3}', '{4}', '{5}','{6}','{7}', '{8}', '{9}', '{10}','{11}','{12}', '{13}', '{14}', '{15}', '{16}')",
+                        report.OldGrandTotal, report.NewGrandTotal, report.Date, report.Type, report.ReadCount, report.Date.ToString("yyyy-MM-dd"), report.VoidItemQty, report.SalesItemQty, report.GrossAmount, report.SalesTransCount, report.TransCount, report.VoidTransCount,
+                        report.VoidAmount, report.Vat, report.VatableSales, report.MinOR, report.MaxOR));
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static int GetNextReadCount(int type)
+        {
+            DataTable dt = DataBaseHelper.GetDB(string.Format(@"SELECT COALESCE(MAX(readcount),0) as rcount FROM Reports WHERE readtype = '{0}'", type));
+            if (dt.Rows.Count == 0)
+                return 0;
+            else
+                return Convert.ToInt32(dt.Rows[0]["rcount"]) + 1;
+        }
+
+        public static decimal GetOldGrandTotal(int type)
+        {
+            DataTable dt = DataBaseHelper.GetDB(string.Format(@"SELECT COALESCE(MAX(newgrandtotal),0) as oldt FROM Reports WHERE readtype = '{0}'", type));
+            if (dt.Rows.Count == 0 || dt == null)
+                return 0;
+            else
+                return Convert.ToDecimal(dt.Rows[0]["oldt"]);
+        }
+        public static string GetOR(bool min, DateTime date)
+        {
+            DataTable dt = DataBaseHelper.GetDB(string.Format(@"SELECT COALESCE({0}(invoicenumber),0) as InvNumber FROM TransactionHead WHERE transdate = '{1}'", min ? "MIN":"MAX", date.ToString("yyyy-MM-dd")));
+            if (dt.Rows.Count == 0 || dt == null)
+                return "0";
+            else
+                return dt.Rows[0]["InvNumber"].ToString();
+        }
+
+        public static bool CheckPOSIfLocked()
+        {
+            DataTable dt = DataBaseHelper.GetDB(string.Format(@"SELECT * FROM Reports WHERE transdate = '{0}' AND `readtype` = 3",  DateTime.Now.ToString("yyyy-MM-dd")));
+            if (dt.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
 
         public static Transaction GetTransactionByInvoice(string invoice)
         {
@@ -162,7 +216,7 @@ namespace SLTE_MINI_POS.Helpers
                         InvoiceNumber = dt.Rows[0]["invoicenumber"].ToString(),
                         TransactionNo = dt.Rows[0]["transactionnumber"].ToString(),
                         Sales = Convert.ToInt32(dt.Rows[0]["sales"].ToString()) == 1 ? true : false,
-                        Date = Convert.ToDateTime(dt.Rows[0]["transdate"].ToString()),
+                        Date = Convert.ToDateTime(dt.Rows[0]["date"].ToString()),
                         TenderAmount = Convert.ToDecimal(dt.Rows[0]["tenderamount"])
                     };
 

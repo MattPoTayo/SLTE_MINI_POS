@@ -88,14 +88,7 @@ namespace SLTE_MINI_POS.Helpers
                 new StringAlignment[] { StringAlignment.Near, StringAlignment.Near },
                 new int[] { printer.StringWidth / 2, printer.StringWidth / 2 }
             );
-            //if (tran.getmemo() != "")
-            //    printer.WriteRow(
-            //      new string[] { "MEMO: ", tran.getmemo() },
-            //      new StringAlignment[] { StringAlignment.Near, StringAlignment.Near },
-            //      new int[] { 6, printer.StringWidth }
-            //    );
-
-            // Product Info
+            
             tempDataTable = new DataTable();
             tempDataTable.Columns.Add();
             tempDataTable.Columns.Add();
@@ -106,28 +99,6 @@ namespace SLTE_MINI_POS.Helpers
             {
                 string proddesc = prod.Name;
                 tempDataTable.Rows.Add(prod.Qty.ToString("0.####"), "", proddesc, prod.Price.ToString("N2"));
-                //if ((prod.getPrice() != prod.getOrigPrice()) && (prod.getOrigPrice() != 0)
-                //    && cls_globalvariables.DiscountDetails == true)
-                //    tempDataTable.Rows.Add("", "", "(P" + prod.getOrigPrice().ToString("N2") + " - " + ((1 - (prod.getPrice() / prod.getOrigPrice())) * 100).ToString("N2") + "%)", "");
-
-                //if (cls_globalvariables.PrintProdMemo == ProductMemoType.ProductMemoNoSI || cls_globalvariables.PrintProdMemo == ProductMemoType.ProductMemoWithSI)
-                //{
-                //    string productmemo = prod.getProductMemo();
-                //    string memo = prod.getMemo();
-                //    if (isreprint)
-                //        prod.get_productmemo_by_wid(tran.getWid(), prod.getWid());
-                //    if (!string.IsNullOrEmpty(productmemo) && !string.IsNullOrWhiteSpace(productmemo) && productmemo.Length != 0)
-                //        tempDataTable.Rows.Add("", "", prod.getProductMemo(), "");
-                //    if (!string.IsNullOrEmpty(memo) && !string.IsNullOrWhiteSpace(memo) && memo.Length != 0)
-                //        tempDataTable.Rows.Add("", "", cls_globalvariables.PrintProdMemo == ProductMemoType.ProductMemoWithSI ? memo : prod.getMemoNoOR(), "");
-                //}
-
-                //if (prod.getQty() < 0)
-                //{
-                //    string refundRef = prod.getRefundReference();
-                //    tempDataTable.Rows.Add("", "", cls_globalvariables.PrintProdMemo == ProductMemoType.ReferenceNo ? "ITEM REFUND! REF#" + refundRef : "ITEM REFUND!", "");
-                //    LOGS.LOG_PRINT(mt.logprint_itemrefunded);
-                //}
             }
             printer.WriteRepeatingCharacterLine('=');
             printer.WriteTable(
@@ -191,16 +162,10 @@ namespace SLTE_MINI_POS.Helpers
             tempDataTable = new DataTable();
             tempDataTable.Columns.Add();
             tempDataTable.Columns.Add();
-            //gcexcess value is 0 if transaction is zero rated
-            //decimal tempExcess = tran.get_productlist().get_zeroratedsale() > 0 ? 0 : gcexcessamt;
             if (globalvariables.IsVatable)
             {
                 decimal vat = (total_sale / 1.12M) * 0.12M;
                 tempDataTable.Rows.Add("VATABLE SALE:", total_sale.ToString("N2"));
-                //if (vatable_return != 0)
-                //    tempDataTable.Rows.Add("VATABLE RETURN:", vatable_return.ToString("N2"));
-                //if (vatable_sale != 0 && vatable_return != 0)
-                //    tempDataTable.Rows.Add("VATABLE SUBTOTAL:", vatableSubtotal.ToString("N2"));
                 printer.WriteRepeatingCharacterLine('=');
                 // VAT
                 tempDataTable.Rows.Add("VAT AMOUNT:", vat.ToString("N2"));
@@ -319,6 +284,247 @@ namespace SLTE_MINI_POS.Helpers
                 validDate = DateTime.Now.AddMonths(1);
             }
             return validDate;
+        }
+
+        public static void PrintReport(object sender, PrintPageEventArgs e, Bitmap bmp, Report report)
+        {
+            PrintReading(e, bmp, report);
+        }
+        public static Graphics PrintReading(PrintPageEventArgs e, Bitmap bmp, Report report)
+        {
+            //DateTime mindate = Convert.ToDateTime(dr_summary["mindate"]);
+            //DateTime maxdate = Convert.ToDateTime(dr_summary["maxdate"]);
+
+
+            bool isPosVatable = globalvariables.IsVatable;
+            string resetCounter = "0";
+            string readcount = report.ReadCount.ToString();
+            string ornumber_begin = report.MinOR;
+            string ornumber_end = report.MaxOR;
+            decimal new_grand = report.OldGrandTotal;
+            decimal old_grand = report.NewGrandTotal;
+
+            string terminalNo = globalvariables.Terminal;
+
+            int nY = 0;
+            int nX = 0;
+            int[] column2format = new int[] { 160, 120 };
+            int[] column4_rect_header2 = new int[] { 70, 70, 70, 70 };
+            int maxwidth = 280;
+            if (globalvariables.PrintReceiptFormat == PrintFormat.Custom_76mm)
+            {
+                column4_rect_header2 = new int[] { 44, 70, 44, 70 };
+                column2format = new int[] { 120, 120 };
+                maxwidth = 240;
+            }
+            else if (globalvariables.PrintReceiptFormat == PrintFormat.Custom_57mm)
+            {
+                column2format = new int[] { 95, 85 };
+                maxwidth = 180;
+            }
+            else if (globalvariables.PrintReceiptFormat == PrintFormat.Custom_76mm_journal)
+            {
+                column4_rect_header2 = new int[] { 56, 70, 56, 70 };
+                column2format = new int[] { 133, 120 };
+                maxwidth = 253;
+            }
+
+            int value = 64;
+            if (globalvariables.PrintReceiptFormat == PrintFormat.Custom_76mm_journal)
+                value = 40;
+            else if (globalvariables.PrintReceiptFormat == PrintFormat.Custom_JNF_57mm)
+                value = 42;
+
+            ReceiptPrinterHelper printer = new ReceiptPrinterHelper(value);
+            if (globalvariables.PrintReceiptBuffer != 0)
+                printer.StringBufferWidth = globalvariables.PrintReceiptBuffer;
+            if (globalvariables.PrintReceiptActual != 0)
+                printer.StringFullWidth = globalvariables.PrintReceiptActual;
+            if (globalvariables.PrintReceiptLimit != 0)
+                printer.StringWidth = globalvariables.PrintReceiptLimit;
+            if (globalvariables.PrintReceiptLinespacing != 0)
+                printer.LineSpacing = globalvariables.PrintReceiptLinespacing;
+
+            //business Title     
+            printer.LargeFont();
+            printer.CPI12();
+            printer.WriteLines(globalvariables.BusinessName);
+
+            printer.NormalFont();
+            printer.CPI12();
+
+            //header 1
+            DataTable dt_header1 = GetHeader(1, report.ActualDate);
+            printer.WriteTable(
+                dt_header1,
+                new StringAlignment[] { StringAlignment.Center },
+                new int[] { printer.StringWidth }
+            );
+
+            printer.LargeFont();
+            printer.CPI12();
+           
+            string letter = (report.Type == 1) ? "X" : "Z";
+            printer.WriteLines("Terminal Report " + letter + @"-Read");
+            printer.NormalFont();
+            printer.CPI12();
+            DataTable dt_tblCounter = new DataTable();
+            dt_tblCounter.Columns.Add(); dt_tblCounter.Columns.Add();
+            dt_tblCounter.Rows.Add("Reading Counter: " + readcount, "Reset Counter: " + resetCounter);
+            printer.WriteTable(
+                dt_tblCounter,
+                new StringAlignment[] { StringAlignment.Near, StringAlignment.Far },
+                new int[] { printer.StringWidth / 2, printer.StringWidth / 2 }
+            );
+
+            //header 2
+            string cdate = report.ActualDate.ToString("MM/dd/yyyy");
+            string ctime = report.ActualDate.ToString("HH:mm:ss");
+            DataTable dt_header2 = new DataTable();
+
+            if (globalvariables.PrintReceiptFormat == PrintFormat.Custom_57mm)
+            {
+                dt_header2.Columns.Add(); dt_header2.Columns.Add();
+                dt_header2.Rows.Add("Date:", cdate);
+                dt_header2.Rows.Add("Time:", report.ActualDate.ToString("HH:mm:ss"));
+                printer.WriteTable(
+                dt_header2,
+                new StringAlignment[] { StringAlignment.Near, StringAlignment.Far },
+                new int[] { printer.StringWidth / 2, printer.StringWidth / 2 }
+                );
+            }
+            else
+            {
+                dt_header2.Columns.Add(); dt_header2.Columns.Add(); dt_header2.Columns.Add(); dt_header2.Columns.Add();
+                dt_header2.Rows.Add("Date:", cdate + " ", " Time:", report.ActualDate.ToString("HH:mm:ss"));
+
+                printer.WriteTable(
+                    dt_header2,
+                    new StringAlignment[] { StringAlignment.Near, StringAlignment.Far, StringAlignment.Near, StringAlignment.Far },
+                    new int[] { printer.StringWidth / 4, printer.StringWidth / 4, printer.StringWidth / 4, printer.StringWidth / 4 }
+                );
+            }
+
+            //space
+            nY += 10;
+
+            //table header
+            DataTable dt_tblheader = new DataTable();
+            dt_tblheader.Columns.Add(); dt_tblheader.Columns.Add();
+            dt_tblheader.Rows.Add("Description", "QTY / AMOUNT");
+            printer.WriteTable(
+                dt_tblheader,
+                new StringAlignment[] { StringAlignment.Near, StringAlignment.Far },
+                new int[] { printer.StringWidth / 2, printer.StringWidth / 2 }
+                );
+            if (report.Type == 1)
+            {
+                //-----------line-------------
+                printer.WriteRepeatingCharacterLine('-');
+            }
+            else if (report.Type == 3)
+            {
+                //space
+                //nY += 10;
+                //-----------line-------------
+                //nY += 5;
+                printer.WriteRepeatingCharacterLine('-');
+                printer.WriteLines("*** Z-READING SUMMARY ***");
+                //-----------line-------------
+                //nY += 5;
+                printer.WriteRepeatingCharacterLine('-');
+                //space
+                //nY += 10;
+            }
+           
+            printer.NormalFont();
+            printer.CPI12();
+            //summaries
+            DataTable dt_salessummary1 = new DataTable();
+            dt_salessummary1.Columns.Add(); dt_salessummary1.Columns.Add();
+
+            dt_salessummary1.Rows.Add("TERMINAL", terminalNo);
+            dt_salessummary1.Rows.Add("BEGIN OR#", ornumber_begin);
+            dt_salessummary1.Rows.Add("END OR#", ornumber_end);
+            dt_salessummary1.Rows.Add("  ", "  ");
+
+            decimal all_vatable_sale = report.VatableSales;
+            decimal all_total_qty = report.SalesItemQty + report.VoidItemQty;
+            decimal all_total_return_qty = report.VoidItemQty;
+
+
+            dt_salessummary1.Rows.Add("GROSS SALES", report.GrossAmount.ToString("N2"));
+            dt_salessummary1.Rows.Add("TOTAL VOID", report.VoidAmount.ToString("N2"));
+            dt_salessummary1.Rows.Add("NET SALES", report.VatableSales.ToString("N2"));
+
+            dt_salessummary1.Rows.Add("CASH SALES", report.VatableSales.ToString("N2"));
+            
+            DataTable dt_salessummary2 = new DataTable();
+            dt_salessummary2.Columns.Add(); dt_salessummary2.Columns.Add();
+
+            dt_salessummary2.Rows.Add("  ", "  ");
+            dt_salessummary2.Rows.Add("VATABLE SALES", report.VatableSales.ToString("N2"));
+            dt_salessummary2.Rows.Add("12% VAT AMT", report.Vat.ToString("N2"));
+
+
+            dt_salessummary2.Rows.Add("  ", "  ");
+            dt_salessummary2.Rows.Add("TOTAL QTY SOLD", report.SalesItemQty.ToString("N2"));
+            dt_salessummary2.Rows.Add("ITEM VOID CNT", report.VoidItemQty.ToString("N2"));
+            dt_salessummary2.Rows.Add("TRANS VOID AMT", report.VoidAmount.ToString("N2"));
+            dt_salessummary2.Rows.Add("TRANS VOID CNT", report.VoidTransCount.ToString("N2"));
+            dt_salessummary2.Rows.Add("SUCCESS TRANS CNT", report.SalesTransCount.ToString("N2"));
+            dt_salessummary2.Rows.Add("TOTAL TRANS CNT", report.TransCount.ToString("N2"));
+
+            if (report.Type == 3)
+            {
+                dt_salessummary2.Rows.Add("  ", "  ");
+                dt_salessummary2.Rows.Add("NEW GRAND TOTAL", new_grand.ToString("N2"));
+                dt_salessummary2.Rows.Add("OLD GRAND TOTAL", old_grand.ToString("N2"));
+            }
+
+            printer.WriteTable(
+                dt_salessummary1,
+                new StringAlignment[] { StringAlignment.Near, StringAlignment.Far },
+                new int[] { printer.StringWidth / 2, printer.StringWidth / 2 }
+                );
+
+            printer.WriteTable(
+                dt_salessummary2,
+                new StringAlignment[] { StringAlignment.Near, StringAlignment.Far },
+                new int[] { printer.StringWidth / 2, printer.StringWidth / 2 }
+                );
+
+            printer.Print();
+            if (globalvariables.PrintReceiptFormat != PrintFormat.Custom_LQ310)
+                printer.ActivateCutter();
+            return null;
+        }
+
+        public static DataTable GetHeader(int type, DateTime dateTime)
+        {
+            bool isPosVatable = globalvariables.IsVatable;
+            
+            string sOwner = globalvariables.Owner;
+            string sAddress = globalvariables.Address;
+            string sTIN = ((isPosVatable) ? "VAT REG. " : "NON VAT REG. ") + globalvariables.TIN;
+            string sACC = globalvariables.Acc;
+            string sPermitNo = globalvariables.PermitNo;
+            string sMIN = globalvariables.MIN;
+            string sSerial = globalvariables.Serial;
+
+            DataTable dt_header1 = new DataTable();
+            dt_header1.Columns.Add();
+            dt_header1.Rows.Add(sOwner);
+            dt_header1.Rows.Add(sAddress);
+            dt_header1.Rows.Add(sTIN);
+            if (type == 1)
+            {
+                dt_header1.Rows.Add(sACC);
+                dt_header1.Rows.Add(sPermitNo);
+                dt_header1.Rows.Add(sSerial);
+                dt_header1.Rows.Add(sMIN);
+            }
+            return dt_header1;
         }
     }
 }

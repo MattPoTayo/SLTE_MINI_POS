@@ -86,6 +86,7 @@
     <Compile Include="Helpers\DataBaseHelper.cs" />
     <Compile Include="Helpers\DataHandler.cs" />
     <Compile Include="Helpers\FncFilter.cs" />
+    <Compile Include="Helpers\GenerateReport.cs" />
     <Compile Include="Helpers\GlobalFunc.cs" />
     <Compile Include="Helpers\HardwareHelper.cs" />
     <Compile Include="Helpers\Helper.cs" />
@@ -99,6 +100,7 @@
     </Compile>
     <Compile Include="Model\Global\globalvariables.cs" />
     <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\Report.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +109,18 @@
     </Compile>
     <Compile Include="Views\ManageInventory.Designer.cs">
       <DependentUpon>ManageInventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modal\ChooseReportType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Modal\ChooseReportType.Designer.cs">
+      <DependentUpon>ChooseReportType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modal\DialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Modal\DialogForm.Designer.cs">
+      <DependentUpon>DialogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Modal\ErrorForm.cs">
       <SubType>Form</SubType>
@@ -165,6 +179,12 @@
     </Compile>
     <EmbeddedResource Include="Views\ManageInventory.resx">
       <DependentUpon>ManageInventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Modal\ChooseReportType.resx">
+      <DependentUpon>ChooseReportType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Modal\DialogForm.resx">
+      <DependentUpon>DialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Modal\ErrorForm.resx">
       <DependentUpon>ErrorForm.cs</DependentUpon>
