@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SLTE_MINI_POS.Model.Global;
 using SLTE_MINI_POS.Views.Modal;
 
 namespace SLTE_MINI_POS.Helpers
@@ -139,6 +140,27 @@ namespace SLTE_MINI_POS.Helpers
             ErrorForm Errorform = new ErrorForm();
             Errorform.errormessage = str;
             Errorform.ShowDialog();
+        }
+        public static bool ConfirmYesNo(string message)
+        {
+            return ConfirmYesNo(message, globalvariables.BusinessName);
+        }
+   
+        public static bool ConfirmYesNo(string message, string title)
+        {
+            return ConfirmYesNo(message, title, "Yes", "No");
+        }
+        public static bool ConfirmYesNo(string message, string title, string yesButtonLabel, string noButtonLabel)
+        {
+            return ConfirmYesNoDialog(message, title, yesButtonLabel, noButtonLabel);
+        }
+        private static bool ConfirmYesNoDialog(string message, string title, string yesButtonLabel, string noButtonLabel)
+        {
+            DialogForm dialogBoxForm = new DialogForm(message, title, yesButtonLabel, noButtonLabel);
+            if (title != "")
+                dialogBoxForm.Text = title;
+            dialogBoxForm.ShowDialog();
+            return dialogBoxForm.ReturnValue == dialogBoxForm.YesButtonLabel;
         }
     }
 }

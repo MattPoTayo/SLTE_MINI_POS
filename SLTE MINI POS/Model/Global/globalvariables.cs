@@ -16,6 +16,7 @@ namespace SLTE_MINI_POS.Model.Global
         public static string saving_failed = "Failed Saving Data.";
         public static string saving_success = "Success Saving Data.";
 
+        public static string confirm_lock_pos = "Generating current day Z-Read will lock your POS for the day.\n\r Are you sure?";
         public static DateTime birUntilDate = new DateTime(2020, 8, 1);
         public static PrintFormat PrintReceiptFormat { get; set; } = PrintFormat.Custom_76mm;
         public static string PrinterODByte { get; set; } = "27,112,0,25,250";
@@ -58,6 +59,8 @@ namespace SLTE_MINI_POS.Model.Global
 
         //Terminal
         public static string Terminal { get; set; } = "1";
+
+        public static bool LockedPOS { get; set; } = false;
 
     }
 }

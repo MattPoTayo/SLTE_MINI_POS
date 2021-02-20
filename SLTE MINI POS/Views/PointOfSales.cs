@@ -1,5 +1,6 @@
 ﻿using SLTE_MINI_POS.Helpers;
 using SLTE_MINI_POS.Model;
+using SLTE_MINI_POS.Model.Global;
 using SLTE_MINI_POS.Views.Modal;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace SLTE_MINI_POS.Views
             this.dgvProduct.AutoGenerateColumns = false;
             this.KeyPreview = true;
             this.beginColumn = 0;
+            globalvariables.LockedPOS = DataHandler.CheckPOSIfLocked();
         }
 
         private void PointOfSales_Load(object sender, EventArgs e)
@@ -216,6 +218,11 @@ namespace SLTE_MINI_POS.Views
 
         private void AddProduct()
         {
+            if(globalvariables.LockedPOS)
+            {
+                FncFilter.Alert("POS is Locked, Z-Read already generated");
+                return;
+            }
 
             if (dgvProduct.SelectedRows.Count <= 0)
                 return;
@@ -262,28 +269,36 @@ namespace SLTE_MINI_POS.Views
 
         private void RefreshTransactionDetails()
         {
-            lblAmoundDueD.Text = transaction.GetTotalAmountDue().ToString("N2");
-            lblTotalQtyD.Text = String.Format("{0:0.##}", transaction.GetTotalQty());
-
-            if (dgvTransactionProduct.Rows.Count <= 0 && dgvTransactionProduct.SelectedRows.Count <= 0)
+            if (globalvariables.LockedPOS)
             {
-                lblQtyD.Text = "0";
-                lblQtyD.Enabled = false;
-                btnChangeQty.Enabled = false;
+                panel2.Enabled = false;
             }
             else
             {
-                try
-                {
-                    lblQtyD.Text = String.Format("{0:0.##}", transaction.productlist[dgvTransactionProduct.SelectedRows[0].Index].Qty);
-                    btnChangeQty.Enabled = true;
-                    lblQtyD.Enabled = true;
-                }
-                catch
+
+                lblAmoundDueD.Text = transaction.GetTotalAmountDue().ToString("N2");
+                lblTotalQtyD.Text = String.Format("{0:0.##}", transaction.GetTotalQty());
+
+                if (dgvTransactionProduct.Rows.Count <= 0 && dgvTransactionProduct.SelectedRows.Count <= 0)
                 {
                     lblQtyD.Text = "0";
-                    btnChangeQty.Enabled = false;
                     lblQtyD.Enabled = false;
+                    btnChangeQty.Enabled = false;
+                }
+                else
+                {
+                    try
+                    {
+                        lblQtyD.Text = String.Format("{0:0.##}", transaction.productlist[dgvTransactionProduct.SelectedRows[0].Index].Qty);
+                        btnChangeQty.Enabled = true;
+                        lblQtyD.Enabled = true;
+                    }
+                    catch
+                    {
+                        lblQtyD.Text = "0";
+                        btnChangeQty.Enabled = false;
+                        lblQtyD.Enabled = false;
+                    }
                 }
             }
         }
@@ -339,6 +354,11 @@ namespace SLTE_MINI_POS.Views
 
         private void btnVoid_Click(object sender, EventArgs e)
         {
+            if (globalvariables.LockedPOS)
+            {
+                FncFilter.Alert("POS is Locked, Z-Read already generated");
+                return;
+            }
             ReprintVoidForm reprintVoidForm = new ReprintVoidForm();
             reprintVoidForm.IsReprint = false;
             reprintVoidForm.ShowDialog();
@@ -347,6 +367,26 @@ namespace SLTE_MINI_POS.Views
         private void btnOpenDrawer_Click(object sender, EventArgs e)
         {
             RawPrinterHelper.OpenCashDrawer(false);
+        }
+
+        private void btnXRead_Click(object sender, EventArgs e)
+        {
+            if(GenerateReport.XRead(DateTime.Now))
+            {
+
+            }
+        }
+
+        private void btnZRead_Click(object sender, EventArgs e)
+        {
+            if (FncFilter.ConfirmYesNo(globalvariables.confirm_lock_pos))
+            {
+                GenerateReport.ZRead(DateTime.Now);
+                globalvariables.LockedPOS = true;
+                RefreshTransactionDetails();
+            }
+            else
+                return;
         }
     }
 }

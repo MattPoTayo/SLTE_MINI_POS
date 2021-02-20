@@ -36,7 +36,8 @@ namespace SLTE_MINI_POS.Helpers
                             "invoicenumber VARCHAR(100) NOT NULL, " +
                             "tenderamount DECIMAL(19,6) NOT NULL DEFAULT 0, " +
                             "sales INT(32) NOT NULL DEFAULT 1, " +
-                            "transdate DATETIME NOT NULL)");
+                            "date DATETIME NOT NULL, " +
+                            "transdate VARCHAR(100) NOT NULL)");
                         conn.Execute("CREATE TABLE IF NOT EXISTS TransactionDetail (" +
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "headid INTEGER NOT NULL, " +
@@ -47,7 +48,27 @@ namespace SLTE_MINI_POS.Helpers
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "productid INTEGER NOT NULL, " +
                             "quantity INTEGER DEFAULT 0, " +
-                            "transdate DATETIME NOT NULL)");
+                            "date DATETIME NOT NULL, " +
+                            "transdate VARCHAR(100) NOT NULL)");
+                        conn.Execute("CREATE TABLE IF NOT EXISTS Reports (" +
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            "oldgrandtotal DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "newgrandtotal DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "date DATETIME NOT NULL, " +
+                            "readtype INT(32) NOT NULL, " +
+                            "readcount INT(32) NOT NULL, " +
+                            "transdate VARCHAR(100) NOT NULL, " +
+                            "minor VARCHAR(100) NOT NULL, " +
+                            "maxor VARCHAR(100) NOT NULL, " +
+                            "voiditemqty DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "salesitemqty DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "grossamount DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "salescount DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "transcount DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "voidcount DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "voidamount DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "vat DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "vatablesales DECIMAL(19,6) NOT NULL DEFAULT 0)");
                     }
 
                     scope.Complete();
