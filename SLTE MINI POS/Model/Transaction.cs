@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SLTE_MINI_POS.Model
+namespace MINIPOS.Model
 {
     public class Transaction
     {
@@ -30,7 +30,8 @@ namespace SLTE_MINI_POS.Model
         }
         public decimal GetChange()
         {
-            return TenderAmount >= GetTotalAmountDue() ? 0 : TenderAmount - GetTotalAmountDue();
+            decimal amountDue = GetTotalAmountDue();
+            return TenderAmount >= amountDue ? TenderAmount - amountDue : 0;
         }
         public void SetTransactionByID(long ID)
         {

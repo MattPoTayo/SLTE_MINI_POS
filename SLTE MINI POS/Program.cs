@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MINIPOS.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SLTE_MINI_POS
+namespace MINIPOS
 {
     static class Program
     {
@@ -28,6 +29,12 @@ namespace SLTE_MINI_POS
 
             Application.ThreadException += Application_ThreadException;
 
+            if (!ConfigGetter.GetConfigDetails())
+            {
+                MessageBox.Show("[Config Getter] Unable to load configuration details.");
+                return;
+            }
+            GenerateReport.GenerateUngeneratedReport();
             Application.Run(new MainForm());
             mutex.ReleaseMutex();
         }

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SLTE_MINI_POS.Model.Global;
-using SLTE_MINI_POS.Views.Modal;
+using MINIPOS.Model.Global;
+using MINIPOS.Views.Modal;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     class FncFilter
     {

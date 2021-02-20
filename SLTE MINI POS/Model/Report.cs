@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SLTE_MINI_POS.Model
+namespace MINIPOS.Model
 {
     public class Report
     {

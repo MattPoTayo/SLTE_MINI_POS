@@ -6,7 +6,7 @@ using System.Transactions;
 using System.Data;
 using System.Windows.Forms;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     public class DataBaseHelper
     {
@@ -48,6 +48,8 @@ namespace SLTE_MINI_POS.Helpers
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "productid INTEGER NOT NULL, " +
                             "quantity INTEGER DEFAULT 0, " +
+                            "manual INTEGER DEFAULT 0, " +
+                            "headid INTEGER DEFAULT 0, " +
                             "date DATETIME NOT NULL, " +
                             "transdate VARCHAR(100) NOT NULL)");
                         conn.Execute("CREATE TABLE IF NOT EXISTS Reports (" +

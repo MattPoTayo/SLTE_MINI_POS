@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SLTE_MINI_POS.Helpers;
-using SLTE_MINI_POS.Model;
-using SLTE_MINI_POS.Views.Modal;
+using MINIPOS.Helpers;
+using MINIPOS.Model;
+using MINIPOS.Views.Modal;
 
-namespace SLTE_MINI_POS.Views
+namespace MINIPOS.Views
 {
     public partial class ProductManagement : BaseForm
     {
@@ -151,6 +151,9 @@ namespace SLTE_MINI_POS.Views
                     break;
                 case "colPrice":
                     e.Value = product.Price.ToString("N2");
+                    break;
+                case "colInventory":
+                    e.Value = product.Qty.ToString("N2");
                     break;
             }
         }

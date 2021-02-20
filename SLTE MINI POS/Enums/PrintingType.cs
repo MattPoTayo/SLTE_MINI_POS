@@ -1,4 +1,4 @@
-﻿namespace SLTE_MINI_POS.Enums
+﻿namespace MINIPOS.Enums
 {
     public enum PrintingType
     {

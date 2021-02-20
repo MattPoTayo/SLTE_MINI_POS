@@ -1,6 +1,6 @@
-﻿using SLTE_MINI_POS.Enums;
-using SLTE_MINI_POS.Model;
-using SLTE_MINI_POS.Model.Global;
+﻿using MINIPOS.Enums;
+using MINIPOS.Model;
+using MINIPOS.Model.Global;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     class HardwareHelper
     {
@@ -165,7 +165,8 @@ namespace SLTE_MINI_POS.Helpers
             if (globalvariables.IsVatable)
             {
                 decimal vat = (total_sale / 1.12M) * 0.12M;
-                tempDataTable.Rows.Add("VATABLE SALE:", total_sale.ToString("N2"));
+                decimal vatable = total_sale / 1.12M;
+                tempDataTable.Rows.Add("VATABLE SALE:", vatable.ToString("N2"));
                 printer.WriteRepeatingCharacterLine('=');
                 // VAT
                 tempDataTable.Rows.Add("VAT AMOUNT:", vat.ToString("N2"));
@@ -463,7 +464,7 @@ namespace SLTE_MINI_POS.Helpers
             dt_salessummary2.Columns.Add(); dt_salessummary2.Columns.Add();
 
             dt_salessummary2.Rows.Add("  ", "  ");
-            dt_salessummary2.Rows.Add("VATABLE SALES", report.VatableSales.ToString("N2"));
+            dt_salessummary2.Rows.Add("VATABLE SALES", (report.VatableSales / 1.12M).ToString("N2"));
             dt_salessummary2.Rows.Add("12% VAT AMT", report.Vat.ToString("N2"));
 
 

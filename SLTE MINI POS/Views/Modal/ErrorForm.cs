@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SLTE_MINI_POS.Helpers;
+using MINIPOS.Helpers;
 
-namespace SLTE_MINI_POS.Views.Modal
+namespace MINIPOS.Views.Modal
 {
     public enum ErrorFormButtonType
     {

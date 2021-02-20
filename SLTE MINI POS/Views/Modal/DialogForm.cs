@@ -1,11 +1,11 @@
-﻿using SLTE_MINI_POS.Helpers;
+﻿using MINIPOS.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SLTE_MINI_POS.Views.Modal
+namespace MINIPOS.Views.Modal
 {
     public partial class DialogForm : BaseForm
     {

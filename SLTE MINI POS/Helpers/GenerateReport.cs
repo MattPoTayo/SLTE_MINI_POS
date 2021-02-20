@@ -1,4 +1,4 @@
-﻿using SLTE_MINI_POS.Model;
+﻿using MINIPOS.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     public static class GenerateReport
     {
@@ -19,7 +19,44 @@ namespace SLTE_MINI_POS.Helpers
 
             return Generate(3, date);
         }
+        public static IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            if (from < thru)
+                for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                    yield return day;
+            else
+                for (var day = from.Date; day.Date >= thru.Date; day = day.AddDays(-1))
+                    yield return day;
+        }
+        public static bool GenerateUngeneratedReport()
+        {
+            try
+            {
+                DateTime minsalesdate = DataHandler.GetMinimumSaleDate();
+                DateTime lastZread = DataHandler.GetLastZReadDate();
 
+                if (lastZread.Date == DateTime.Now.Date)
+                    return true;
+                if (lastZread.Date == DateTime.Now.AddDays(-1))
+                    return true;
+                else
+                {
+                    DataBaseHelper.SetDB(@"DELETE FROM Reports WHERE transdate >= '" + lastZread.Date.ToString("yyyy-MM-dd") + "'");
+                    foreach (DateTime day in EachDay(lastZread, DateTime.Now.AddDays(-1)))
+                    {
+                        GenerateReport.XRead(day);
+                        GenerateReport.ZRead(day);
+                    }
+                }
+            
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
         private static bool Generate(int type, DateTime date)
         {
             try
@@ -90,6 +127,8 @@ namespace SLTE_MINI_POS.Helpers
 
                 report.GrossAmount = report.VoidAmount + report.VatableSales;
                 report.TransCount = report.SalesTransCount + report.VoidTransCount;
+                DataBaseHelper.SetDB(@"DELETE FROM Reports WHERE readtype = '" + report.Type + "' AND transdate = '" + report.Date.ToString("yyyy-MM-dd") + "'");
+                report.ReadCount = DataHandler.GetNextReadCount(report.Type);
                 HardwareHelper.PrintReport(null, null, null, report);
                 return DataHandler.SaveReport(report);
             }

@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SLTE_MINI_POS.Helpers;
-using SLTE_MINI_POS.Model.Global;
-using SLTE_MINI_POS.Model;
+using MINIPOS.Helpers;
+using MINIPOS.Model.Global;
+using MINIPOS.Model;
 
-namespace SLTE_MINI_POS.Views.Modal
+namespace MINIPOS.Views.Modal
 {
     public partial class ProductInfo : Form
     {
