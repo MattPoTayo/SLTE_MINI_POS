@@ -141,5 +141,10 @@ namespace SLTE_MINI_POS.Views.Modal
                 }
             }
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

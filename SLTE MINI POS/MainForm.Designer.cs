@@ -288,7 +288,7 @@ namespace SLTE_MINI_POS
             this.btnPointOfSalesSub.FlatAppearance.BorderSize = 0;
             this.btnPointOfSalesSub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPointOfSalesSub.ForeColor = System.Drawing.Color.DimGray;
-            this.btnPointOfSalesSub.IconChar = FontAwesome.Sharp.IconChar.BalanceScale;
+            this.btnPointOfSalesSub.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
             this.btnPointOfSalesSub.IconColor = System.Drawing.Color.Black;
             this.btnPointOfSalesSub.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPointOfSalesSub.IconSize = 32;

@@ -33,6 +33,9 @@ namespace SLTE_MINI_POS.Helpers
                         conn.Execute("CREATE TABLE IF NOT EXISTS TransactionHead (" +
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "transactionnumber VARCHAR(100) NOT NULL, " +
+                            "invoicenumber VARCHAR(100) NOT NULL, " +
+                            "tenderamount DECIMAL(19,6) NOT NULL DEFAULT 0, " +
+                            "sales INT(32) NOT NULL DEFAULT 1, " +
                             "transdate DATETIME NOT NULL)");
                         conn.Execute("CREATE TABLE IF NOT EXISTS TransactionDetail (" +
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
