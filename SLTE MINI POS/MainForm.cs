@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
-using SLTE_MINI_POS.Views;
+using MINIPOS.Views;
 
-namespace SLTE_MINI_POS
+namespace MINIPOS
 {
     public partial class MainForm : BaseForm
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace SLTE_MINI_POS
+namespace MINIPOS
 {
     partial class MainForm
     {
@@ -288,7 +288,7 @@ namespace SLTE_MINI_POS
             this.btnPointOfSalesSub.FlatAppearance.BorderSize = 0;
             this.btnPointOfSalesSub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPointOfSalesSub.ForeColor = System.Drawing.Color.DimGray;
-            this.btnPointOfSalesSub.IconChar = FontAwesome.Sharp.IconChar.BalanceScale;
+            this.btnPointOfSalesSub.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
             this.btnPointOfSalesSub.IconColor = System.Drawing.Color.Black;
             this.btnPointOfSalesSub.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPointOfSalesSub.IconSize = 32;
@@ -337,7 +337,7 @@ namespace SLTE_MINI_POS
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::SLTE_MINI_POS.Properties.Resources.image_2021_02_15T06_49_39_683Z;
+            this.pictureBox2.Image = global::MINIPOS.Properties.Resources.image_2021_02_15T06_49_39_683Z;
             this.pictureBox2.Location = new System.Drawing.Point(7, 10);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(232, 96);
@@ -359,7 +359,7 @@ namespace SLTE_MINI_POS
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = global::SLTE_MINI_POS.Properties.Resources.image_2021_02_15T06_49_39_683Z;
+            this.pictureBox1.Image = global::MINIPOS.Properties.Resources.image_2021_02_15T06_49_39_683Z;
             this.pictureBox1.Location = new System.Drawing.Point(347, 254);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(206, 169);
@@ -455,7 +455,7 @@ namespace SLTE_MINI_POS
             // btnHMenu
             // 
             this.btnHMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.btnHMenu.BackgroundImage = global::SLTE_MINI_POS.Properties.Resources.list;
+            this.btnHMenu.BackgroundImage = global::MINIPOS.Properties.Resources.list;
             this.btnHMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnHMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnHMenu.FlatAppearance.BorderSize = 0;
