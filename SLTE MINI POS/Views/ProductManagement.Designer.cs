@@ -1,5 +1,5 @@
 ﻿
-namespace SLTE_MINI_POS.Views
+namespace MINIPOS.Views
 {
     partial class ProductManagement
     {
@@ -34,16 +34,17 @@ namespace SLTE_MINI_POS.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductManagement));
             this.txtKeyword = new System.Windows.Forms.TextBox();
             this.dgvProduct = new System.Windows.Forms.DataGridView();
-            this.colBarcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStockNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddProduct = new FontAwesome.Sharp.IconButton();
             this.btnSearchProduct = new FontAwesome.Sharp.IconButton();
             this.bgwSearchProduct = new System.ComponentModel.BackgroundWorker();
             this.keyDownTimer = new System.Windows.Forms.Timer(this.components);
             this.pbLoad = new System.Windows.Forms.PictureBox();
             this.cbShowDiscontinued = new System.Windows.Forms.CheckBox();
+            this.colBarcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStockNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colInventory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).BeginInit();
             this.SuspendLayout();
@@ -90,7 +91,8 @@ namespace SLTE_MINI_POS.Views
             this.colBarcode,
             this.colProductName,
             this.colPrice,
-            this.colStockNo});
+            this.colStockNo,
+            this.colInventory});
             this.dgvProduct.GridColor = System.Drawing.Color.Gainsboro;
             this.dgvProduct.Location = new System.Drawing.Point(12, 149);
             this.dgvProduct.Name = "dgvProduct";
@@ -99,46 +101,6 @@ namespace SLTE_MINI_POS.Views
             this.dgvProduct.Size = new System.Drawing.Size(644, 361);
             this.dgvProduct.TabIndex = 12;
             this.dgvProduct.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProduct_CellContentDoubleClick);
-            // 
-            // colBarcode
-            // 
-            this.colBarcode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colBarcode.FillWeight = 70.77962F;
-            this.colBarcode.HeaderText = "Barcode";
-            this.colBarcode.MinimumWidth = 80;
-            this.colBarcode.Name = "colBarcode";
-            this.colBarcode.ReadOnly = true;
-            this.colBarcode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colProductName
-            // 
-            this.colProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colProductName.FillWeight = 43.46766F;
-            this.colProductName.HeaderText = "Name";
-            this.colProductName.MinimumWidth = 40;
-            this.colProductName.Name = "colProductName";
-            this.colProductName.ReadOnly = true;
-            this.colProductName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colProductName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colPrice
-            // 
-            this.colPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colPrice.FillWeight = 42.48488F;
-            this.colPrice.HeaderText = "Price";
-            this.colPrice.MinimumWidth = 60;
-            this.colPrice.Name = "colPrice";
-            this.colPrice.ReadOnly = true;
-            this.colPrice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colPrice.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colStockNo
-            // 
-            this.colStockNo.HeaderText = "StockNo";
-            this.colStockNo.Name = "colStockNo";
-            this.colStockNo.ReadOnly = true;
-            this.colStockNo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colStockNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // btnAddProduct
             // 
@@ -209,6 +171,52 @@ namespace SLTE_MINI_POS.Views
             this.cbShowDiscontinued.UseVisualStyleBackColor = true;
             this.cbShowDiscontinued.CheckedChanged += new System.EventHandler(this.chShowDiscontinued_CheckedChanged);
             // 
+            // colBarcode
+            // 
+            this.colBarcode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colBarcode.FillWeight = 70.77962F;
+            this.colBarcode.HeaderText = "Barcode";
+            this.colBarcode.MinimumWidth = 80;
+            this.colBarcode.Name = "colBarcode";
+            this.colBarcode.ReadOnly = true;
+            this.colBarcode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colProductName
+            // 
+            this.colProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colProductName.FillWeight = 43.46766F;
+            this.colProductName.HeaderText = "Name";
+            this.colProductName.MinimumWidth = 40;
+            this.colProductName.Name = "colProductName";
+            this.colProductName.ReadOnly = true;
+            this.colProductName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colProductName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colPrice
+            // 
+            this.colPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colPrice.FillWeight = 42.48488F;
+            this.colPrice.HeaderText = "Price";
+            this.colPrice.MinimumWidth = 60;
+            this.colPrice.Name = "colPrice";
+            this.colPrice.ReadOnly = true;
+            this.colPrice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colPrice.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colStockNo
+            // 
+            this.colStockNo.HeaderText = "StockNo";
+            this.colStockNo.Name = "colStockNo";
+            this.colStockNo.ReadOnly = true;
+            this.colStockNo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colStockNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colInventory
+            // 
+            this.colInventory.HeaderText = "Inventory";
+            this.colInventory.Name = "colInventory";
+            this.colInventory.ReadOnly = true;
+            // 
             // ProductManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,10 +248,11 @@ namespace SLTE_MINI_POS.Views
         private System.ComponentModel.BackgroundWorker bgwSearchProduct;
         private System.Windows.Forms.Timer keyDownTimer;
         private System.Windows.Forms.PictureBox pbLoad;
+        private System.Windows.Forms.CheckBox cbShowDiscontinued;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBarcode;
         private System.Windows.Forms.DataGridViewTextBoxColumn colProductName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStockNo;
-        private System.Windows.Forms.CheckBox cbShowDiscontinued;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colInventory;
     }
 }

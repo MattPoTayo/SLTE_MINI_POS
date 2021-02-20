@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SLTE_MINI_POS.Helpers;
-using SLTE_MINI_POS.Model;
-using SLTE_MINI_POS.Views.Modal;
+using MINIPOS.Helpers;
+using MINIPOS.Model;
+using MINIPOS.Views.Modal;
 
-namespace SLTE_MINI_POS.Views
+namespace MINIPOS.Views
 {
     public partial class Reports : BaseForm
     {
@@ -81,6 +81,10 @@ namespace SLTE_MINI_POS.Views
                 else
                     return;
             }
+            else if (e.KeyCode == Keys.Enter)
+                GenerateReport();
+            else
+                return;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -161,8 +165,7 @@ namespace SLTE_MINI_POS.Views
                 //return;
 
             e.Result = false;
-            string str_input = "";
-            SQLSearch = string.Format(@"SELECT * FROM Reports GROUP BY transdate");
+            SQLSearch = string.Format(@"SELECT * FROM Reports WHERE transdate BETWEEN '{0}' AND '{1}' GROUP BY transdate", from.ToString("yyyy-MM-dd"), to.ToString("yyyy-MM-dd"));
 
             DataTable reportsDataTable = DataBaseHelper.GetDB(SQLSearch);
             reports.Clear();

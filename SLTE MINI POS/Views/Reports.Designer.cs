@@ -1,5 +1,5 @@
 ﻿
-namespace SLTE_MINI_POS.Views
+namespace MINIPOS.Views
 {
     partial class Reports
     {

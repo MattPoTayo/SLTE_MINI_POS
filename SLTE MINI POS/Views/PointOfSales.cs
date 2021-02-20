@@ -1,7 +1,7 @@
-﻿using SLTE_MINI_POS.Helpers;
-using SLTE_MINI_POS.Model;
-using SLTE_MINI_POS.Model.Global;
-using SLTE_MINI_POS.Views.Modal;
+﻿using MINIPOS.Helpers;
+using MINIPOS.Model;
+using MINIPOS.Model.Global;
+using MINIPOS.Views.Modal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,8 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace SLTE_MINI_POS.Views
+namespace MINIPOS.Views
 {
     public partial class PointOfSales : BaseForm
     {
@@ -228,18 +229,18 @@ namespace SLTE_MINI_POS.Views
                 return;
 
             Product product = products[dgvProduct.SelectedRows[0].Index];
-            product.Qty = 1;
             try
             {
                 bool alreadyExists = transaction.productlist.Any(x => x.ID == product.ID);
                 if (alreadyExists)
                 {
                     int index = transaction.productlist.FindIndex(a => a.ID == product.ID);
-                    transaction.productlist[index].Qty += product.Qty;
+                    transaction.productlist[index].Qty = transaction.productlist[index].Qty + 1;
 
                 }
                 else
                 {
+                    product.Qty = 1;
                     transaction.productlist.Add(product);
                 }
                 dgvTransactionProduct.RowCount = transaction.productlist.Count;
@@ -373,7 +374,7 @@ namespace SLTE_MINI_POS.Views
         {
             if(GenerateReport.XRead(DateTime.Now))
             {
-
+                FncFilter.Alert("X-Read Generation Success");
             }
         }
 
@@ -387,6 +388,10 @@ namespace SLTE_MINI_POS.Views
             }
             else
                 return;
+        }
+
+        private void btnPayment_MouseHover(object sender, EventArgs e)
+        {
         }
     }
 }

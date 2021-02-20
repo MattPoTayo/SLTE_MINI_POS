@@ -1,5 +1,5 @@
 ﻿
-namespace SLTE_MINI_POS.Views.Modal
+namespace MINIPOS.Views.Modal
 {
     partial class PaymentForm
     {

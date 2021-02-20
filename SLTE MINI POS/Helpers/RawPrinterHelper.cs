@@ -1,10 +1,10 @@
-﻿using SLTE_MINI_POS.Helpers;
+﻿using MINIPOS.Helpers;
 using System;
 using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     public static class RawPrinterHelper
     {

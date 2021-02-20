@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SLTE_MINI_POS.Model;
+using MINIPOS.Model;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     public static class DataHandler
     {
@@ -61,10 +61,29 @@ namespace SLTE_MINI_POS.Helpers
                 {
                     DataBaseHelper.SetDB(string.Format(@"INSERT INTO TransactionDetail(headid, productid, quantity, price)
                     VALUES('{0}','{1}','{2}', '{3}')", idNo, prod.ID, prod.Qty, prod.Price));
+                    DataBaseHelper.SetDB(string.Format(@"INSERT INTO InventoryAdjust(productid, quantity, headid, date, transdate)
+                    VALUES('{0}','{1}','{2}', '{3}', '{4}')", prod.ID, prod.Qty * -1, idNo, trans.Date, trans.Date.ToString("yyyy-MM-dd")));
+                }
+                return true;
+
+            }
+            catch 
+            {
+                return false;
+            }
+        }
+        public static bool SaveAdjustments(List<Inventory> adjustments)
+        {
+            try
+            {
+                foreach (Inventory adj in adjustments)
+                {
+                    DataBaseHelper.SetDB(string.Format(@"INSERT INTO InventoryAdjust(productid, quantity, headid, date, transdate, manual)
+                    VALUES('{0}','{1}','{2}', '{3}', '{4}', '{5}')", adj.ProductID, adj.Quantity, 0, adj.Date, adj.Date.ToString("yyyy-MM-dd"), "1"));
                 }
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -150,8 +169,6 @@ namespace SLTE_MINI_POS.Helpers
             {
                 DataBaseHelper.SetDB(@"DELETE FROM Reports WHERE readtype = '" + report.Type + "' AND transdate = '" + report.Date.ToString("yyyy-MM-dd") + "'");
 
-                report.ReadCount = GetNextReadCount(report.Type);
-
                 DataBaseHelper.SetDB(string.Format(@"INSERT INTO Reports(oldgrandtotal, newgrandtotal, date, readtype, readcount, transdate, voiditemqty, salesitemqty, grossamount, salescount, transcount, voidcount, voidamount, vat, vatablesales, minor, maxor)
                     VALUES('{0}','{1}','{2}', '{3}', '{4}', '{5}','{6}','{7}', '{8}', '{9}', '{10}','{11}','{12}', '{13}', '{14}', '{15}', '{16}')",
                         report.OldGrandTotal, report.NewGrandTotal, report.Date, report.Type, report.ReadCount, report.Date.ToString("yyyy-MM-dd"), report.VoidItemQty, report.SalesItemQty, report.GrossAmount, report.SalesTransCount, report.TransCount, report.VoidTransCount,
@@ -163,6 +180,31 @@ namespace SLTE_MINI_POS.Helpers
             {
                 return false;
             }
+        }
+        public static DateTime GetMinimumSaleDate()
+        {
+            DataTable dt = DataBaseHelper.GetDB(string.Format(@"SELECT MIN(date) as date FROM TransactionHead"));
+            if (dt.Rows.Count == 0 || dt == null)
+                return DateTime.Now;
+            else
+                try
+                {
+                    return Convert.ToDateTime(dt.Rows[0]["date"]);
+                }
+                catch { return DateTime.Now; }
+        }
+
+        public static DateTime GetLastZReadDate()
+        {
+            DataTable dt = DataBaseHelper.GetDB(string.Format(@"SELECT MIN(date) as date FROM Reports WHERE readtype = 3"));
+            if (dt.Rows.Count == 0 || dt == null)
+                return DataHandler.GetMinimumSaleDate();
+            else
+                try
+                {
+                    return Convert.ToDateTime(dt.Rows[0]["date"]);
+                }
+                catch { return DataHandler.GetMinimumSaleDate(); }
         }
         public static int GetNextReadCount(int type)
         {

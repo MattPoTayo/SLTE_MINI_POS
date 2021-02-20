@@ -8,12 +8,12 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using SLTE_MINI_POS.Enums;
+using MINIPOS.Enums;
 using System.Drawing.Drawing2D;
 using System.Globalization;
-using SLTE_MINI_POS.Model.Global;
+using MINIPOS.Model.Global;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     public class ReceiptPrinterHelper
     {

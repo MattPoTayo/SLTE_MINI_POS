@@ -1,4 +1,4 @@
-﻿using SLTE_MINI_POS.Model.Global;
+﻿using MINIPOS.Model.Global;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SLTE_MINI_POS.Helpers
+namespace MINIPOS.Helpers
 {
     class GlobalFunc
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace SLTE_MINI_POS.Enums
+namespace MINIPOS.Enums
 {
     public enum PrintFormat
     {

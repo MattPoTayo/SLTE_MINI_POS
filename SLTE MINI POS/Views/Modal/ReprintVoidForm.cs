@@ -1,5 +1,5 @@
-﻿using SLTE_MINI_POS.Helpers;
-using SLTE_MINI_POS.Model;
+﻿using MINIPOS.Helpers;
+using MINIPOS.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SLTE_MINI_POS.Views.Modal
+namespace MINIPOS.Views.Modal
 {
     public partial class ReprintVoidForm : Form
     {
