@@ -102,7 +102,7 @@ namespace MINIPOS.Views
             // 
             // btnZRead
             // 
-            this.btnZRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnZRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnZRead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnZRead.FlatAppearance.BorderSize = 0;
             this.btnZRead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -119,7 +119,7 @@ namespace MINIPOS.Views
             // 
             // btnXRead
             // 
-            this.btnXRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnXRead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnXRead.FlatAppearance.BorderSize = 0;
             this.btnXRead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -136,7 +136,7 @@ namespace MINIPOS.Views
             // 
             // btnOpenDrawer
             // 
-            this.btnOpenDrawer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenDrawer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOpenDrawer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnOpenDrawer.FlatAppearance.BorderSize = 0;
             this.btnOpenDrawer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -153,7 +153,7 @@ namespace MINIPOS.Views
             // 
             // btnVoid
             // 
-            this.btnVoid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVoid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnVoid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnVoid.FlatAppearance.BorderSize = 0;
             this.btnVoid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -170,7 +170,7 @@ namespace MINIPOS.Views
             // 
             // btnReprint
             // 
-            this.btnReprint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReprint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReprint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnReprint.FlatAppearance.BorderSize = 0;
             this.btnReprint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
