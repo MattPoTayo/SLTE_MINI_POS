@@ -37,7 +37,7 @@ namespace MINIPOS.Helpers
 
                 if (lastZread.Date == DateTime.Now.Date)
                     return true;
-                if (lastZread.Date == DateTime.Now.AddDays(-1))
+                if (lastZread.Date == DateTime.Now.AddDays(-1).Date)
                     return true;
                 else
                 {
